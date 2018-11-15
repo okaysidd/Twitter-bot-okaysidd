@@ -4,10 +4,10 @@ import time
 FILE_NAME = 'last_seen.txt'
 print('My twiter bot')
 
-CONSUMER_KEY = 'lsmZwSPdLjkKjF3lAoslYFoKP'
-CONSUMER_SECRET = '22poxBoxPWzfvRBYWaM4uuwC9UuaxFVQinfgM4PPpgvqWrgt44'
-ACCESS_KEY = '1062705651745345537-krviZj55FHDIlmq0MZfyV2kC8g9s2H'
-ACCESS_SECRET = 'N2GOQnZuHS39JPj5hPOmTDIkpPlUGGLWrlj4qtv5T5M3w'
+CONSUMER_KEY = '<enter consumer_key here>'
+CONSUMER_SECRET = '<enter consumer_secret here>'
+ACCESS_KEY = '<enter access_key here>'
+ACCESS_SECRET = '<enter access_secret here>'
 
 auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
@@ -26,10 +26,12 @@ def store_last_seen_id(last_seen_id, filename):
     return
 
 def reply_to_tweet():
-    # DEV NOTE- use 1062755960848969729 for testing from beginning
-
+    # DEV NOTE- use 1063097217945296896 for testing from beginning
+    mentions = []
     last_seen_id = retrieve_last_seen_id(FILE_NAME)
-    mentions = api.mentions_timeline(last_seen_id)
+    print('Last seen id={}'.format(last_seen_id))
+    if last_seen_id != '' and last_seen_id != None:
+        mentions = api.mentions_timeline(last_seen_id)
     for mention in reversed(mentions):
         last_seen_id = mention.id
         store_last_seen_id(last_seen_id, FILE_NAME)

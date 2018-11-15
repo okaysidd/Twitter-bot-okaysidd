@@ -28,7 +28,6 @@ def store_last_seen_id(last_seen_id, filename):
 def reply_to_tweet():
     # DEV NOTE- use 1062755960848969729 for testing from beginning
 
-    print('Starting to retrieve tweets after the last checked tweet, and replying to those with #okaysidd in them.')
     last_seen_id = retrieve_last_seen_id(FILE_NAME)
     mentions = api.mentions_timeline(last_seen_id)
     for mention in reversed(mentions):
@@ -37,9 +36,10 @@ def reply_to_tweet():
         #print(str(mention.id) + ' -- ' + mention.text)
         if '#okaysidd' in mention.text.lower():
             print('Found #okaysidd    responding...\n')
-            api.update_status('@' + mention.user.screen_name + ' test complete', mention.id)
+            api.update_status('@' + mention.user.screen_name + ' test successful :) How did you find us?', mention.id)
             print('Responded to tweet -- {}'.format(mention.text))
 
+print('Starting to retrieve tweets after the last checked tweet, and replying to those with #okaysidd in them.')
 while 1:
     reply_to_tweet()
     time.sleep(60)
